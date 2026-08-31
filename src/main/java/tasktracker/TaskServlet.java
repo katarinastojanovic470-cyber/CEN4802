@@ -18,9 +18,9 @@ public class TaskServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        tasks.add("Complete programming assignment");
-        tasks.add("Study for upcoming exam");
-        tasks.add("Review project requirements");
+        tasks.add("Complete programming assignment - High");
+        tasks.add("Study for upcoming exam - Medium");
+        tasks.add("Review project requirements - Low");
     }
 
     @Override
