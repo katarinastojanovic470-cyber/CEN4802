@@ -39,8 +39,17 @@ public class TaskServlet extends HttpServlet {
         out.println("<h2>Add a Task</h2>");
 
         out.println("<form method='post' action='TaskServlet'>");
+
         out.println("<input type='text' name='task' placeholder='Enter a task'>");
+
+        out.println("<select name='priority'>");
+        out.println("<option value='Low'>Low</option>");
+        out.println("<option value='Medium'>Medium</option>");
+        out.println("<option value='High'>High</option>");
+        out.println("</select>");
+
         out.println("<button type='submit'>Add Task</button>");
+
         out.println("</form>");
 
         out.println("<h2>My Tasks</h2>");
@@ -61,9 +70,10 @@ public class TaskServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String task = request.getParameter("task");
+        String priority = request.getParameter("priority");
 
         if (task != null && !task.trim().isEmpty()) {
-            tasks.add(task.trim());
+            tasks.add(task.trim() + " - " + priority);
         }
 
         response.sendRedirect("TaskServlet");
