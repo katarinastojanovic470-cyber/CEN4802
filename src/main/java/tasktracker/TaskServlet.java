@@ -75,7 +75,9 @@ public class TaskServlet extends HttpServlet {
         String task = request.getParameter("task");
         String priority = request.getParameter("priority");
 
-        if (task != null && !task.trim().isEmpty()) {
+        if (task != null && !task.trim().isEmpty()
+                && priority != null && !priority.trim().isEmpty()) {
+
             tasks.add(task.trim() + " - " + priority);
         }
 
