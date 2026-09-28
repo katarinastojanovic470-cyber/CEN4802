@@ -1,4 +1,4 @@
-CEN4802 - Assignment 3: Continuous Integration and Release Automation
+CEN4802 - Assignment 4: Continuous Integration and Release Automation
 
 Author: Katarina Stojanovic
 
