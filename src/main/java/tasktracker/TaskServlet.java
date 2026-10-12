@@ -50,20 +50,53 @@ public class TaskServlet extends HttpServlet {
         out.println("<button type='submit'>Add Task</button>");
         out.println("</form>");
         out.println("<h2>My Tasks</h2>");
-        out.println("<p>Total Tasks: " + tasks.size() + "</p>");
+
+        out.println("<form method='get' action='TaskServlet'>");
+        out.println("<input type='text' name='search' placeholder='Search tasks'>");
+
+        out.println("<select name='filterPriority'>");
+        out.println("<option value='All'>All Priorities</option>");
+        out.println("<option value='Low'>Low</option>");
+        out.println("<option value='Medium'>Medium</option>");
+        out.println("<option value='High'>High</option>");
+        out.println("</select>");
+
+        out.println("<button type='submit'>Search / Filter</button>");
+        out.println("<a href='TaskServlet'>Show All</a>");
+        out.println("</form>");
+
+        String search = request.getParameter("search");
+        String filterPriority = request.getParameter("filterPriority");
+
+        if (search == null) {
+            search = "";
+        }
+
+        if (filterPriority == null || filterPriority.trim().isEmpty()) { 
+            filterPriority = "All";
+        }
+        
+        out.println("<p>Total Active Tasks: " + tasks.size() + "</p>");
         out.println("<ul>");
 
         for (int i = 0; i < tasks.size(); i++) {
             String task = tasks.get(i);
 
-            out.println("<li>");
-            out.println(task);
-            out.println("<form method='post' action='TaskServlet' style='display:inline;'>");
-            out.println("<input type='hidden' name='action' value='complete'>");
-            out.println("<input type='hidden' name='taskIndex' value='" + i + "'>");
-            out.println("<button type='submit'>Complete</button>");
-            out.println("</form>");
-            out.println("</li>");
+            boolean matchesSearch = task.toLowerCase().contains(search.trim().toLowerCase());
+
+            boolean matchesPriority = "All".equals(filterPriority)
+                    || task.endsWith(" - " + filterPriority);
+
+            if (matchesSearch && matchesPriority) {
+                out.println("<li>");
+                out.println(task);
+                out.println("<form method='post' action='TaskServlet' style='display:inline;'>");
+                out.println("<input type='hidden' name='action' value='complete'>");
+                out.println("<input type='hidden' name='taskIndex' value='" + i + "'>");
+                out.println("<button type='submit'>Complete</button>");
+                out.println("</form>");
+                out.println("</li>");
+            }
         }
 
         out.println("</ul>");
